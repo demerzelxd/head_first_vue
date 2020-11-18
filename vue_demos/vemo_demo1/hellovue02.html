@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app" class="aaa">
+        <span >{{msg.toUpperCase()}}</span><br>
+        <span v-text="msg"></span><br>
+        <span>{{users[0].name}}</span>
+    </div>
+    <!--引入vue.js-->
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            // el:"#app",
+            el: ".aaa", //不推荐使用class选择器
+            data: {
+                msg: "hello vue!",
+                users: [{name: "dada", age: 23}, {name: "gaga",age: 26}]
+            }
+        })
+    </script>
+</body>
+</html>

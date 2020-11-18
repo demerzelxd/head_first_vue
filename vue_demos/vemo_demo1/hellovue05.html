@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件简化语法</title>
+</head>
+<body>
+    <div id="app">
+        <span>{{msg}}</span><br>
+        <span v-text="msg"></span><br>
+        <span>{{age}}</span><br>
+<!--        绑定按钮使age的值增加-->
+        <input type="button" value="点我改变年龄" @click="changeAge">
+    </div>
+    <!--引入vue.js-->
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello vue!!!",
+                age: 23,
+            },
+            methods: {//用来定义vue的事件
+                changeAge: function () {
+                    // alert("点击触发");
+                    this.age++;//this就相当于vue实例
+                }
+            }
+        });
+    </script>
+</body>
+</html>

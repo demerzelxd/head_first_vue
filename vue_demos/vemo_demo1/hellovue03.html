@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app" class="aa">
+<!--        相比于插值表达式{{}}，v-text不会发生因为网络异常导致的插值闪烁问题-->
+<!--        相当于直接渲染到span标签中-->
+        <span>{{msg}},此处没有覆盖</span><br>
+        <span v-text="msg">此处被覆盖</span><br>
+        <span v-html="msg"></span>
+    </div>
+    <!--引入vue.js-->
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                msg:"<a href=''>hello vue!!</a>"
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue入门</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <span>
+            <h1>{{pwd}}</h1>
+        </span>
+    </div>
+    <!--引入vue.js-->
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",  //element 用来给Vue实例定义一个作用范围，放在div后面，这样等div的dom树加载完再进行操作
+            data:{      //用来给Vue实例定义一些相关数据
+                msg:"hello vue",
+                username:"hello Vue!",
+                pwd :"12345",
+            },
+        });
+    </script>
+</body>
+</html>
