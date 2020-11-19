@@ -11,7 +11,7 @@
     <input type="button" value="添加到记事本" @click="addNote(note)">
     <ul>
         <li v-for="(note, index) in noteList">
-            <!--            javascript:void(0)阻止超链接默认的行为-->
+            <!-- javascript:void(0)阻止超链接默认的行为-->
             {{ index + 1 }} {{ note }}<a href="javascript:void(0)" @click="delRow(index)">删除</a>
         </li>
     </ul>

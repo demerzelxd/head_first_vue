@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按键修饰符</title>
+</head>
+<body>
+<div id="app">
+    <!--enter回车键-->
+    <input type="text" v-model="msg" @keyup.enter="keyups">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "",
+        },
+        methods: {
+            keyups() {
+                alert(this.msg)
+            }
+        }
+    })
+</script>
+</body>
+</html>

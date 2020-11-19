@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <style>
+        .aa {
+            background: red;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<!--和事件一起使用，用来决定事件的触发条件或者阻止事件的触发机制-->
+<body>
+<div id="app">
+    <!--stop用来阻止事件冒泡，冒泡：执行btnClick后会执行divClick-->
+    <div class="aa" @click="divClick">
+        <!--        加上.stop可以阻止事件冒泡-->
+        <!--        <input type="button" value="按钮" @click="btnClick">-->
+        <input type="button" value="按钮" @click.stop="btnClick">
+    </div>
+
+    <!--    prevent阻止标签的默认行为，比如href的跳转，这里点击只进行函数操作，不跳转到百度-->
+    <hr>
+    <a href="http://baidu.com" @click.prevent="urlClick">百度</a>
+
+    <!--    self修饰符只触发自己标签上特定动作的事件-->
+    <hr>
+    <!--    在父标签加self-->
+    <div class="aa" @click.self="divClick">
+        <!--        加上.stop可以阻止事件冒泡，但是子标签太多的话每个都要加stop，很麻烦-->
+        <!--        <input type="button" value="按钮" @click="btnClick">-->
+        <input type="button" value="按钮1" @click="btnClick">
+        <input type="button" value="按钮2" @click="btnClick">
+        <input type="button" value="按钮3" @click="btnClick">
+        <input type="button" value="按钮4" @click="btnClick">
+    </div>
+
+    <!--    once修饰符，让指定的事件只触发一次，这里只禁用href属性一次-->
+    <hr>
+    <a href="http://baidu.com" @click.prevent.once="urlClick">百度</a>
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+            btnClick() {
+                alert("按钮被点击了")
+            },
+            divClick() {
+                alert("div被点击了")
+            },
+            urlClick() {
+                alert("url被点击了")
+            }
+        }
+    })
+</script>
+</body>
+</html>
