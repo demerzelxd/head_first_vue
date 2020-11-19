@@ -3,26 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>记事本</title>
+    <!--    完成记事本的查询所有，添加删除，删除所有，总数-->
 </head>
 <body>
 <div id="app">
-    <input type="text">
-    <input type="button" value="添加到记事本">
+    <input type="text" v-model="note">
+    <input type="button" value="添加到记事本" @click="addNote(note)">
     <ul>
-        <li>第一次记事 <a href="">删除</a></li>
-        <li>第二次记事 <a href="">删除</a></li>
-        <li>第三次记事 <a href="">删除</a></li>
-    </ul><br>
-    <span>总数量: 3 条</span>
-    <input type="button" value="删除所有">
+        <li v-for="(note, index) in noteList">
+            <!--            javascript:void(0)阻止超链接默认的行为-->
+            {{ index + 1 }} {{ note }}<a href="javascript:void(0)" @click="delRow(index)">删除</a>
+        </li>
+    </ul>
+    <br>
+    <span>总数量: {{noteList.length}} 条</span>
+    <input type="button" value="删除所有" @click="deleteAll" v-show="noteList.length!=0">
 </div>
 <!--引入vue.js-->
 <script src="node_modules/vue/dist/vue.js"></script>
 <script>
     const app = new Vue({
         el: "#app",
-        data: {},
-        methods: {}
+        data: {
+            noteList: ["第一次记事", "第二次记事", "第三次记事"],
+            note: ""
+        },
+        methods: {
+            addNote() {
+                //数组用push
+                this.noteList.push(this.note);
+                //添加完之后把文本框清空
+                this.note = ""
+            },
+            delRow(index) {
+                this.noteList.splice(index, 1);//删除某个下标开始的1个元素
+            },
+            deleteAll() {
+                this.noteList = [];
+            }
+        }
     })
 </script>
 </body>
