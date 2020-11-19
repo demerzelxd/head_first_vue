@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件传参</title>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="-" @click="decrease">
+    <h2>{{ count }}</h2>
+    <input type="button" value="+" @click="increase">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            count: 1
+        },
+        methods: {
+            decrease() {
+                //数字不能小于0
+                //也就是只有大于0的时候才继续减
+                if (this.count > 0) {
+                    this.count--;
+                } else {
+                    alert("不能再少了！");
+                }
+            },
+            increase() {
+                //数字不能大于10
+                //也就是只有小于10的时候才继续加
+                if (this.count < 10) {
+                    this.count++;
+                } else {
+                    alert("不能再多了！");
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

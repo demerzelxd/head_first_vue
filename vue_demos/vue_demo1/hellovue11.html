@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind</title>
+
+    <style>
+        .vueImg {
+            border: 2px red solid;
+        }
+    </style>
+
+</head>
+<!--用来给标签绑定相应属性，动态改变标签属性样式-->
+<body>
+<div id="app">
+    <!--    v-bind里面可以写三元运算符-->
+<!--    <img v-bind:width="width" v-bind:class="showCss?'vueImg':''" title="Vue Logo"-->
+<!--         src="https://cn.vuejs.org/images/logo.png" alt="Vue">-->
+
+<!--    三元运算符简化写法-->
+<!--    <img v-bind:width="width" v-bind:class="{vueImg:showCss}" title="Vue Logo"-->
+<!--         src="https://cn.vuejs.org/images/logo.png" alt="Vue">-->
+<!--    <input type="button" value="更改图片样式" @click="changeCss">-->
+
+<!--    v-bind:属性 简化写法为:属性-->
+    <img :width="width" :class="{vueImg:showCss}" title="Vue Logo"
+         src="https://cn.vuejs.org/images/logo.png" alt="Vue">
+    <input type="button" value="更改图片样式" @click="changeCss">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            width: "200px",
+            // css: "vueImg"
+            showCss: false
+        },
+        methods: {
+            changeCss() {
+                this.showCss = !this.showCss;
+            }
+        }
+    })
+</script>
+</body>
+</html>

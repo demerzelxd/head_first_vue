@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-show</title>
+</head>
+<body>
+<!--v-show用来控制页面中某个元素是否展示，底层为操纵display属性。里面是boolean-->
+<div id="app">
+    <h2 v-show="isShow">你好</h2>
+    <input type="button" value="操纵标签" @click="controlTag">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            isShow: false
+        },
+        methods: {
+            controlTag() {
+                this.isShow = !this.isShow;
+            }
+        }
+    })
+</script>
+</body>
+</html>

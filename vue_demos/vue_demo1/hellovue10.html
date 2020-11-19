@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-show</title>
+</head>
+<body>
+<!--v-if用来控制页面中某个元素是否展示，底层控制dom元素-->
+<!--v-show的原始标签还在，只不过display:none而已，v-if为false时整个原始标签都隐藏了-->
+<div id="app">
+    <h2 v-if="isShow">你好</h2>
+    <input type="button" value="操纵标签" @click="controlTag">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            isShow: false
+        },
+        methods: {
+            controlTag() {
+                this.isShow = !this.isShow;
+            }
+        }
+    })
+</script>
+</body>
+</html>

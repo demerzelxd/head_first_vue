@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件传参</title>
+</head>
+<body>
+    <div id="app">
+        <span>{{count}}</span>
+        <input type="button" value="改变值" @click="changeCount(23, 'dada')">
+    </div>
+    <!--引入vue.js-->
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                count: 1
+            },
+            methods: {
+                changeCount(count, name) {
+                    this.count = count;
+                    alert(name);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
