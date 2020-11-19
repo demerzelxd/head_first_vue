@@ -2,10 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>vue回顾</title>
+    <title>v-for</title>
 </head>
 <body>
 <div id="app">
+    <!--    建议在使用v-for的时候指定唯一的key属性，便于vue内部做重用和排序-->
+    <!--    通过v-for遍历对象-->
+    <span v-for="(value, key, index) in user" :key="index">
+        {{ index }} {{ key }} : {{ value }} <br>
+    </span><br>
+    <!--    通过v-for遍历数组-->
+    <span v-for="(name, index) in nameList">
+        {{ index }} {{ name }} <br>
+    </span><br>
+    <!--    组合遍历-->
+    <!--    在使用v-for的时候指定唯一的key属性-->
+    <ul>
+        <li v-for="(user, index) in userList" :key="user.id">
+            {{ index }} {{ user.name }} : {{ user.age }}<br>
+        </li>
+    </ul>
 
 </div>
 <!--引入vue.js-->
@@ -14,11 +30,34 @@
     const app = new Vue({
         el: "#app",
         data: {
-
+            user: {
+                name: "dada",
+                age: 23
+            },
+            nameList: [
+                'dada',
+                'gaga',
+                'papa'
+            ],
+            userList: [
+                {
+                    id: "1",
+                    name: "dada",
+                    age: 23
+                },
+                {
+                    id: "2",
+                    name: "gaga",
+                    age: 24
+                },
+                {
+                    id: "3",
+                    name: "nana",
+                    age: 25
+                }
+            ]
         },
-        methods: {
-
-        }
+        methods: {}
     })
 </script>
 </body>

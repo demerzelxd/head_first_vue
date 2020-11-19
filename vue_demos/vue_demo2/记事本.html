@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>记事本</title>
+</head>
+<body>
+<div id="app">
+    <input type="text">
+    <input type="button" value="添加到记事本">
+    <ul>
+        <li>第一次记事 <a href="">删除</a></li>
+        <li>第二次记事 <a href="">删除</a></li>
+        <li>第三次记事 <a href="">删除</a></li>
+    </ul><br>
+    <span>总数量: 3 条</span>
+    <input type="button" value="删除所有">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {},
+        methods: {}
+    })
+</script>
+</body>
+</html>

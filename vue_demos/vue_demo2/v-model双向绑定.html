@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model双向绑定</title>
+<!--    双向绑定即：1.文本框的数据变化，data数据也变化，2.data数据变化，文本框的数据也变化-->
+<!--    MVVM架构：model数据，view页面，vm为ViewModel监听器，vm为桥梁的作用-->
+</head>
+<body>
+<!--v-model用来绑定标签元素的值与vue实例对象中的data数据保持一致-->
+<div id="app">
+    <input type="text" v-model="message"/>
+    <span>{{ message }}</span>
+    <input type="button" value="改变值" @click="changeValue">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: ""
+        },
+        methods: {
+            changeValue() {
+                this.message = "你好"
+            }
+        }
+    })
+</script>
+</body>
+</html>
