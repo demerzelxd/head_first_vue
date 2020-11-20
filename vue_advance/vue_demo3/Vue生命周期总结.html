@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期总结</title>
+</head>
+<!--初始化阶段new Vue()，运行阶段，销毁阶段-->
+<!--beforeCreate仅完成了初始化-->
+
+<body>
+<div id="app">
+    <span id="sp">{{ msg }}</span>
+    <input type="button" value="加一" @click="change">
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "dada"
+        },
+        methods: {
+            change() {
+                this.msg = "gaga";
+            }
+        },
+        //初始化阶段：
+        beforeCreate() {
+            //生命周期中的第一个函数，该函数执行时，vue实例仅完成了自身事件的绑定和生命周期函数的初始化
+            //Vue实例中还没有Data，el，methods..
+            console.log("beforeCreated: " + this.msg);//拿不到
+        },
+        created() {
+            //生命周期的第二个函数，执行时，已经实现了data和函数的初始化
+            console.log("created: " + this.msg);//拿到了
+        },
+        beforeMount() {
+            //生命周期的第三个函数，执行时vue将el中指定的范围作为模板编译，但并没有把{{msg}}解析
+            console.log("beforeMount: "+document.getElementById("sp").innerText);
+            //仍是{{ msg }}
+        },
+        mounted() {
+            //把值渲染到页面中，至此整个vue对象全部初始化完成
+            console.log("mounted: "+document.getElementById("sp").innerText);
+            //dada
+        },
+
+        //运行阶段
+        beforeUpdate() {
+            //生命周期的第五个函数，在data中的数据变化时执行，执行时仅仅是vue实例中的数据变化，页面显示的还是原来的
+            console.log("before update: "+this.msg);
+            console.log("before update: "+document.getElementById("sp").innerText);
+        },
+        updated() {
+            //生命周期的第六个函数，页面中的数据也发生了变化，和修改后的data一致
+            console.log("updated: "+this.msg);
+            console.log("updated: "+document.getElementById("sp").innerText);
+        },
+        beforeDestroy() {
+            //该函数执行时，Vue的所有数据methods都没有销毁
+        },
+        destroyed() {
+            //Vue实例已销毁
+        }
+    })
+</script>
+</body>
+</html>

@@ -6,25 +6,53 @@
 </head>
 <body>
 <div id="app">
-    <input type="text">
-    <input type="button" value="搜索"> <br>
-
-    <span>
-        <a href="">北京</a>
-        <a href="">上海</a>
-        <a href="">广州</a>
-        <a href="">深圳</a>
+    <input type="text" v-model="name" @keyup.delete="notShowDelete" @keyup.enter="search">
+    <input type="button" value="搜索" @click="search"> <br>
+    <span v-for="city in hotCities">
+        <a href="" @click.prevent="searchCity(city)">{{ city }}</a>&nbsp;&nbsp;
     </span>
     <hr>
-    <span>北京，今天的天气是：晴转多云，空气不错</span>
+    <span v-show="isShow">{{ name }}，今天的天气是：{{ message }}</span>
 </div>
 <!--引入vue.js-->
 <script src="node_modules/vue/dist/vue.js"></script>
+<!--引入axios-->
+<script src="node_modules/axios/dist/axios.js"></script>
 <script>
     const app = new Vue({
         el: "#app",
-        data: {},
-        methods: {}
+        data: {
+            hotCities: ["北京", "上海", "广州", "深圳"],
+            name: "",//城市名
+            message: "",//天气
+            isShow: false
+        },
+        methods: {
+            notShowDelete() {
+                this.isShow = false;
+            },
+            searchCity(city) {
+                this.name = city;
+                this.search();
+            },
+            search() {
+                //获取输入的城市信息
+                // console.log(this.name)
+                console.log(this);  //这个this是Vue...
+                let _this = this;
+                //发送异步请求
+                axios.get("http://localhost:9000/city/find?name=" + this.name)
+                    .then(function (response) {
+                        console.log(this);  //这个this是Window...
+                        //axios内部的this和vue的this不一样
+                        console.log(response.data.message)
+                        _this.message = response.data.message;
+                        _this.isShow = !_this.isShow;
+                    }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+        }
     })
 </script>
 </body>
