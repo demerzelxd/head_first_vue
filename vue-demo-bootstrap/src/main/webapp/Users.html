@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户管理页面</title>
+	<!--引入bootstrap中css的样式-->
+	<link rel="stylesheet" href="./bootvue/css/bootstrap.min.css">
+</head>
+<body>
+<!--导航条-->
+<!--导航-->
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">用户管理</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">欢迎：xxx</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<div id="app">
+	<!--中心布局-->
+	<!--container-fluid可以填满剩下的容器空间-->
+	<div class="container-fluid">
+		<!--搜索框-->
+		<div class="row">
+			<div class="col-md-8 col-md-offset-1">
+				<form class="form-inline">
+					<div class="form-group">
+						<label for="searchName">姓名：</label>
+						<input type="text" class="form-control" id="searchName" v-model="name">
+					</div>
+					<div class="form-group">
+						<label for="searchPhone">电话号码</label>
+						<input type="text" class="form-control" id="searchPhone" v-model="phone">
+					</div>
+					<button type="button" class="btn btn-info" @click="searchUser()">搜索</button>
+				</form>
+			</div>
+		</div>
+		<!--栅格系统-->
+		<div class="row" style="margin-top: 20px">
+			<div class="col-md-8">
+				<!--用户信息展示：表格-->
+				<!--有斑马线、边框、高亮-->
+				<table class="table table-striped table-bordered table-hover">
+					<tr>
+						<!--标题-->
+						<th>ID</th>
+						<th>姓名</th>
+						<th>年龄</th>
+						<th>薪资</th>
+						<th>电话号码</th>
+						<th>操作</th>
+					</tr>
+					<tbody>
+					<tr v-for="(user, index) in users" :key="user.id">
+						<td>{{user.id}}</td>
+						<td>{{user.name}}</td>
+						<td>{{user.age}}</td>
+						<td>{{user.salary}}</td>
+						<td>{{user.phone}}</td>
+						<td>
+							<button class="btn btn-danger" @click="deleteUser(user.id)">删除</button>&nbsp;&nbsp;
+							<button class="btn btn-primary" @click="findUser(user.id)">修改</button>
+						</td>
+					</tr>
+					<!--<tr>-->
+					<!--	<td>1</td>-->
+					<!--	<td>张三</td>-->
+					<!--	<td>23</td>-->
+					<!--	<td>2300</td>-->
+					<!--	<td>11111111111</td>-->
+					<!--	<td>-->
+					<!--		<button class="btn btn-danger">删除</button>&nbsp;&nbsp;<button class="btn btn-primary">修改-->
+					<!--	</button>-->
+					<!--	</td>-->
+					<!--</tr>-->
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-4">
+				<form>
+					<div class="form-group">
+						<label for="username">姓名：</label>
+						<input type="text" class="form-control" id="username" v-model="user.name" placeholder="请输入姓名">
+					</div>
+					<div class="form-group">
+						<label for="age">年龄：</label>
+						<input type="text" class="form-control" id="age" v-model="user.age" placeholder="请输入年龄">
+					</div>
+					<div class="form-group">
+						<label for="salary">薪资：</label>
+						<input type="text" class="form-control" id="salary" v-model="user.salary" placeholder="请输入薪资">
+					</div>
+					<div class="form-group">
+						<label for="phone">电话号码：</label>
+						<input type="text" class="form-control" id="phone" v-model="user.phone" placeholder="请输入电话号码">
+					</div>
+
+					<!--submit按下后会刷新页面，button不会-->
+					<button type="button" class="btn btn-primary" @click="saveUser">提交</button>
+					<button type="button" class="btn btn-danger" @click="resetUser">重置</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--引入vue.js-->
+<script src="./bootvue/js/vue.min.js"></script>
+<!--引入axios-->
+<script src="./bootvue/js/axios.min.js"></script>
+
+<script>
+	const app = new Vue({
+		el: "#app",
+		data: {
+			users: [//在页面加载完成之后，users必须存在数据
+				// {id: 1, name: "dada", age: 23, salary: 2300, phone: "11111111111"},
+				// {id: 2, name: "gaga", age: 19, salary: 4500, phone: "22222222222"}
+			],
+			user: {}, // 用来在表单完成数据双向绑定
+			name: '',
+			phone: ''
+		},
+		methods: {
+			// 保存用户信息
+			saveUser() {
+				let _this = this;
+				// console.log(this.user);
+				axios.post("http://localhost:8989/users/user/save", this.user).then(function (resp) {
+					console.log(resp.data);
+					if (resp.data.success) {
+						//添加成功
+						//更新页面列表
+						_this.findAll();
+						//清空表单用户信息
+						_this.user = {};
+					} else {
+						//添加失败
+						alert("添加失败！" + resp.data.msg);
+					}
+				}).catch(function (err) {
+					alert(err);
+				});
+			},
+			//查询所有用户
+			findAll() {
+				let _this = this;
+				axios.get("http://localhost:8989/users/user/findAll").then(function (resp) {
+					// console.log(resp.data);
+					_this.users = resp.data;
+				}).catch(function (err) {
+					console.log(err);
+				})
+			},
+			//重置表单
+			resetUser() {
+				this.user = {};
+			},
+			//删除用户
+			deleteUser(id) {
+				let _this = this;
+				if (window.confirm("是否确定要删除这条记录?")) {
+					axios.get("http://localhost:8989/users/user/delete?id=" + id).then(function (resp) {
+						console.log(resp.data);
+						if (resp.data.success) {
+							_this.findAll();
+						} else {
+							alert(resp.data.msg);
+						}
+					}).catch(function (err) {
+						alert(err);
+					})
+				}
+			},
+			//根据id查询用户
+			findUser(id) {
+				let _this = this;
+				//根据id查询用户信息
+				axios.get("http://localhost:8989/users/user/query?id=" + id).then(function (resp) {
+					console.log(resp.data);
+					_this.user = resp.data;
+				});
+			},
+			//搜索关键字
+			searchUser(name, phone) {
+				let _this = this;
+				//查询用户信息
+				axios.get("http://localhost:8989/users/user/search?name=" + this.name + "&phone=" + this.phone).then(function (resp) {
+					console.log(resp.data);
+					_this.users = resp.data;
+				});
+			}
+		},
+		// 生命周期相关
+		created() {
+			// 发送查询所有用户信息的操作
+			this.findAll();
+		}
+	})
+</script>
+</body>
+</html>
