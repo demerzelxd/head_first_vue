@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RouterLink使用</title>
+</head>
+<body>
+<div id="app">
+	<!--	router-link不需要写#，用来代替a标签，默认渲染出的a标签，可以更改tag属性渲染为button等-->
+	<router-link to="/login" tag="button">我要登录</router-link>
+	<router-link to="/logon" tag="button">我要注册</router-link>
+<!--	<a href="#/login">点我登录</a>-->
+<!--	<a href="#/logon">点我注册</a>-->
+	<router-view></router-view>
+</div>
+<template id="login">
+	<div>
+		<h1>登录</h1>
+	</div>
+</template>
+<template id="logon">
+	<div>
+		<h1>注册</h1>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+	const login = {
+		template: "#login"
+	}
+	const logon = {
+		template: "#logon"
+	}
+	const router = new VueRouter({
+		routes: [
+			//默认路由
+			// {path: "/", component: login},
+			{path: "/", redirect: '/login'},
+			{path: "/login", component: login},
+			{path: "/logon", component: logon},
+		]
+	})
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		router: router
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue路由</title>
+</head>
+<!--就是根据不同请求定位到不同组件，组件间的切换-->
+<body>
+<div id="app">
+<!--	必须写#，否则就是在localhost直接写/login，而不是在当前页面写/login-->
+	<a href="#/login">点我登录</a>
+	<a href="#/register">点我注册</a>
+<!--	使用路由，自动根据不同的path展示不同的组件-->
+	<router-view></router-view>
+</div>
+<template id="login">
+	<div>
+		<h1>登录</h1>
+	</div>
+</template>
+<template id="register">
+	<div>
+		<h1>注册</h1>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+	const login = {
+		template: "#login"
+	}
+	const register = {
+		template: "#register"
+	}
+	// 创建路由对象
+	// 用到了路由之后就不用把组件绑定到父组件Vue实例的components里面了，而是与路由绑定，路由再与Vue实例相绑定
+	const router = new VueRouter({
+		//是一个数组
+		routes: [
+			{path: "/login", component: login},
+			{path: "/register", component: register}
+		]
+	})
+
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		//设置路由对象
+		router: router
+	})
+</script>
+</body>
+</html>
