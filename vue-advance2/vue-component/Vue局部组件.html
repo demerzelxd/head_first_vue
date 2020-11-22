@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue局部组件的三种定义方式</title>
+</head>
+<!--以后一般使用局部组件，因为对于全局组件来说，如果以后不使用该组件了，组件还会在Vue实例中，没有必要-->
+<!--局部组件：通过将组件注册给Vue实例中的一个components属性，这种方式不会对Vue实例造成负担-->
+<body>
+<div id="app">
+<!--	<login></login>-->
+<!--	<logon></logon>-->
+	<logout></logout>
+</div>
+<!--局部组件模板，不会渲染到网页上，仅仅作为模板被使用-->
+<template id="logoutTemplate">
+	<div>
+		<h1>用户注销</h1>
+		<input type="button" value="注销">
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+	//局部组件模板
+	const logon = {
+		template: "<div><h1>用户注册</h1><input type='button' value='注册'></div>"
+	}
+	const logout = {
+		template: "#logoutTemplate"
+	}
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		components: {  //用来注册局部组件
+			login: {   //局部组件名称
+				template: "<div><h1>用户登录2</h1><input type='button' value='登录2'></div>"
+			},
+			logon: logon,
+			// logout: logout //如果組件名和模板名一樣，只寫一個即可
+			logout
+		}
+	})
+</script>
+</body>
+</html>

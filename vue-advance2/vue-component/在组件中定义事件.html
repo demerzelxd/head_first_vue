@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>在组件中定义事件</title>
+</head>
+<body>
+<div id="app">
+	<welcomed></welcomed>
+</div>
+<template id="welcomed">
+	<div>
+		<input type="button" value="按钮" @click="showWelcome">
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+	const welcomed = {
+		template: "#welcomed",
+		//组件自己的数据，使用函数加return的写法
+		data() {
+			return {
+				name: "gaga",
+			}
+		},
+		methods: {
+			showWelcome() {
+				alert(this.name)
+			}
+		}
+	}
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		components: {
+			welcomed
+		}
+	})
+</script>
+</body>
+</html>

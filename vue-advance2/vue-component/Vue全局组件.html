@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue全局组件</title>
+</head>
+<!--组件就是用来减少vue实例对象中的代码量的，方便做维护和管理
+可以根据不同业务功能，将页面划分为不同的多个组件-->
+<body>
+<div id="app">
+<!--	使用全局组件，组件名加上标签即可-->
+<!--	对于驼峰命名，需要换一种写法-->
+<!--	<login></login>-->
+	<user-login></user-login>
+</div>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+	// 全局组件注册：组件名称，组件配置对象: template用来书写组件的html代码的:在template中有且只有一个容器，比如div
+	// 全局组件是注册给Vue实例的，日后可以在Vue的任意实例范围内使用该组件
+	Vue.component("userLogin", {
+		template: "<div><h1>用户登录</h1><input type='button' value='登录'></div>"
+	})
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue通过props接收静态数据</title>
+</head>
+<!--局部组件使用props接收数据-->
+<body>
+<div id="app">
+<!--	通过在组件上声明静态数据，来将数据传递到组件内部-->
+	<welcome name="dada" age=23></welcome>
+</div>
+<template id="welcome">
+	<div>
+		<h1>欢迎：{{name}}的年龄是{{age}}</h1>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+	const welcome = {
+		template: "#welcome",
+		//props是一个数组
+		props: ['name', 'age']
+	}
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		components: {
+			welcome,
+		}
+	})
+</script>
+</body>
+</html>

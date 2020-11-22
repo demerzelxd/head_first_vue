@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue通过props接收动态数据</title>
+<!--	以后data的数据变了，组件的数据也会跟着变，也就是说，父组件变化的时候子组件也会改变
+是一种单向数据流-->
+</head>
+<body>
+<div id="app">
+	<welcomed :name="username" :age="vueAge"></welcomed>
+</div>
+<template id="welcomed">
+	<div>
+		<h1>欢迎：{{name}}的年龄是{{age}}</h1>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+	const welcomed = {
+		template: "#welcomed",
+		//和模板的属性同名，而不是和data的属性同名
+		props: ['name', 'age']
+	}
+	const app = new Vue({
+		el: "#app",
+		data: {
+			username: "dada",
+			vueAge: 24
+		},
+		methods: {},
+		components: {
+			welcomed
+		}
+	})
+</script>
+</body>
+</html>

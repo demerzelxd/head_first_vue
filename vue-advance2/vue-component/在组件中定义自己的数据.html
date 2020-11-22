@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>在组件中定义自己的数据</title>
+</head>
+<body>
+<div id="app">
+	<welcomed :username="username"></welcomed>
+</div>
+<template id="welcomed">
+	<div>
+		<h1>欢迎：{{name}}</h1>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+	const welcomed = {
+		template: "#welcomed",
+		//组件自己的数据，使用函数加return的写法
+		data() {
+			return {
+				// name: "gaga",
+				name: this.username //把父组件的username赋值给自己的name
+			}
+		},
+		//自己定义了一个name gaga，父组件又传来一个name nana，最终优先使用的是父组件的name
+		//不能在子组件内部改变父组件的值
+		// props: ['name']
+		props: ['username']
+	}
+	const app = new Vue({
+		el: "#app",
+		data: {
+			username: "nana"
+		},
+		methods: {},
+		components: {
+			welcomed
+		}
+	})
+</script>
+</body>
+</html>
