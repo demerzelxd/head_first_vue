@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>路由的参数传递</title>
+<!--	通过？方式拼接参数-->
+<!--	通过restful方式传递参数-->
+</head>
+<body>
+<div id="app">
+	<router-link to="/login?id=21&name=dada" tag="button">点我登录</router-link>
+	<router-link to="/register/24/gaga" tag="button">点我注册</router-link>
+	<router-view></router-view>
+</div>
+<template id="login">
+	<div>
+		<h1>登录{{this.$route.query.id+" name: "+this.$route.query.name}}</h1>
+	</div>
+</template>
+<template id="register">
+	<div>
+		<h1>注册{{this.$route.params.id+" name: "+this.$route.params.name}}</h1>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+	const login = {
+		template: "#login",
+		data() {
+			return {}
+		},
+		methods: {},
+		created() {
+			//这个是当前组件的this
+			// console.log(this)
+			//获取地址栏的参数
+			// console.log(this.$route.query.id+" name: "+this.$route.query.name);
+		}
+	};
+	const register = {
+		template: "#register",
+		created() {
+			// console.log(this.$route.params.id+" name: "+this.$route.params.name);
+		}
+	}
+	const router = new VueRouter({
+		routes: [
+			{path: "/", redirect: "/login"},
+			{path: "/login", component: login},
+			//在定义路由的时候定义restful
+			{path: "/register/:id/:name", component: register}
+		]
+	});
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		router: router
+	})
+</script>
+</body>
+</html>

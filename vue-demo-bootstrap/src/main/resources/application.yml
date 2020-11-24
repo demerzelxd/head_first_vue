@@ -15,3 +15,7 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: cn.vue.domain
+logging:
+  level:
+    root: info
+    cn.vue.mapper: debug

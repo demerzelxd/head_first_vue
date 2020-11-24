@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>嵌套路由</title>
+</head>
+<body>
+<div id="app">
+	<router-link to="/product" tag="button">商品管理</router-link>
+	<router-view></router-view>
+</div>
+<template id="product">
+	<div>
+<!--		嵌套路由-->
+		<h1>商品管理</h1>
+		<router-link to="/product/add">商品添加</router-link>
+		<router-link to="/product/edit">商品编辑</router-link>
+		<router-view></router-view>
+	</div>
+</template>
+<!--引入vue.js-->
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+	const product = {
+		template: "#product"
+	}
+	const add = {
+		template: "<h3>商品添加</h3>"
+	}
+	const edit = {
+		template: "<h3>商品编辑</h3>"
+	}
+	const router = new VueRouter({
+		routes: [
+			{
+				path: "/product",
+				component: product,
+				children: [
+					{path: "add", component: add},
+					{path: "edit", component: edit},
+				]
+			}
+		]
+	})
+	const app = new Vue({
+		el: "#app",
+		data: {},
+		methods: {},
+		router
+	})
+</script>
+</body>
+</html>
